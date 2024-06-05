@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Department and Employee Table</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Department Section -->
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Department List</h2>
+        <a th:href="@{/department/add}" class="btn btn-primary">Add Department</a>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Department ID</th>
+            <th>Department Name</th>
+            <th>Status</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.id}"></td>
+            <td th:text="${department.departName}"></td>
+            <td th:text="${department.status?'Active':'Inactive'}"></td>
+            <td><a th:href="@{/department/edit/{id}(id=${department.id})}" class="btn btn-warning">Update</a></td>
+            <td><a th:href="@{/department/delete/{id}(id=${department.id})}" class="btn btn-danger" onclick="confirm('Are you sure🤡')">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Employee Section -->
+    <div class="d-flex justify-content-between mb-3 mt-5">
+        <h2>Employee List</h2>
+        <a th:href="@{/employee/add}" class="btn btn-primary">Add Employee</a>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Avatar</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.empId}"></td>
+            <td th:text="${employee.empName}"></td>
+            <td ><img th:src="${employee.avatar}" style="height: 50px;width: 100px; object-fit: cover"></td>
+            <td th:text="${employee.gender?'Nam':'Nu'}"></td>
+            <td th:text="${#dates.format(employee.birthday,'dd/MM/yyyy')}"></td>
+            <td th:text="${employee.position}"></td>
+            <td th:text="${employee.salary}"></td>
+            <td th:text="${employee.department.departName}"></td>
+            <td><a th:href="@{/employee/edit/{id}(id=${employee.empId})}" class="btn btn-warning">Update</a></td>
+            <td><a th:href="@{/employee/delete/{id}(id=${employee.empId})}" class="btn btn-danger" onclick="confirm('Are you sure🤡')">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0"></script>
+</body>
+</html>
